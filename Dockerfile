@@ -1,6 +1,6 @@
 FROM alpine:3.8
 
-ENV CONSUL_HOST consul.mytools.live
+ENV CONSUL_HOST http://consul-server.default.svc
 
 RUN mkdir -p /data/acme
 RUN mkdir /scripts
