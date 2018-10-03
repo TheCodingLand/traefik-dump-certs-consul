@@ -1,5 +1,7 @@
 FROM alpine:3.8
 
+#If ran inside kubernetes, you can use : http://consul-server.default.svc:8500
+#I use a whitelisted IP range, so I use external domain name for the api
 ENV CONSUL_HOST https://consul.mytools.live
 
 RUN mkdir -p /data/acme
