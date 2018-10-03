@@ -1,0 +1,38 @@
+kind: Job
+apiVersion: batch/v1
+metadata:
+  name: consul-dump-cert-script
+spec:
+  #schedule: h/30 * * * * ?
+  backoffLimit: 5
+  activeDeadlineSeconds: 100
+  template:
+    metadata:
+        name: consul-dump-script
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: consul-dump-cert-script
+          image: registry.mytools.live/acme-dump-script:1.2
+          #command: /bin/sh /scripts/dumpCert.sh
+          command: ["/bin/sh", "/scripts/dumpCert.sh"]
+          #args: ["-c", "while true; do echo hello; sleep 10;done"]          
+          volumeMounts:
+           - mountPath: /data
+             name: consul-dump-script-volume
+      volumes:
+        - name: consul-dump-script-volume
+          persistentVolumeClaim: 
+            claimName: acme-storage
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: acme-storage
+spec:
+  storageClassName: nfs-client
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi
