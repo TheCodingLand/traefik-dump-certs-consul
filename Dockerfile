@@ -14,4 +14,4 @@ COPY dumpcerts.sh dumpcerts.sh
 RUN chmod 777 dumpcerts.sh
 RUN chmod 666 -R /data
 
-CMD ./dumpcerts.sh /data/acme/acme.json /data/
+#CMD ./dumpcerts.sh /data/acme/acme.json /data/

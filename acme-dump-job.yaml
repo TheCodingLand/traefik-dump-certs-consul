@@ -12,8 +12,8 @@ spec:
       restartPolicy: Never
       containers:
         - name: consul-dump-cert-script
-          image: registry.mytools.live/acme-dump-script:1.2
-          command: ["/bin/sh", "/scripts/dumpcerts.sh"]   
+          image: registry.mytools.live/traefik-dump-certs-consul:1
+          command: ["/bin/sh", "/scripts/dumpcerts.sh", "/data/acme/acme.json","/data/"]
           volumeMounts:
            - mountPath: /data
              name: consul-dump-script-volume
