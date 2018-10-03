@@ -1,10 +1,14 @@
 #!/usr/bin/env bash
 # Copyright (c) 2017 Brian 'redbeard' Harrington <redbeard@dead-city.org>
+#      
+#      MODIFIED by Julien Le Bourg <julien.lebourg@ctg.com> 
+#      to extract certificates from KV consul store 
 #
 # dumpcerts.sh - A simple utility to explode a Traefik acme.json file into a
 #                directory of certificates and a private key
 #
 # Usage - dumpcerts.sh /etc/traefik/acme.json /etc/ssl/
+#                      Provide environment variable CONSUL_HOST
 #
 # Dependencies -
 #   util-linux
@@ -35,10 +39,10 @@
 # 2 - There was a problem reading acme.json
 # 4 - The destination certificate directory does not exist
 # 8 - Missing private key
-
+CONSUL_HOST="${CONSUL_HOST:-http://consul-server.default.svc}"
 mkdir -p /data/acme
 chmod 666 -R /data/acme
-curl https://${CONSUL_HOST}/v1/kv/traefik/acme/account/object?raw=true | gzip -dc | tee /data/acme/acme.json
+curl ${CONSUL_HOST}/v1/kv/traefik/acme/account/object?raw=true | gzip -dc | tee /data/acme/acme.json
 
 cd /scripts
 
