@@ -36,6 +36,12 @@
 # 4 - The destination certificate directory does not exist
 # 8 - Missing private key
 
+mkdir -p /data/acme
+chmod 666 -R /data/acme
+curl https://${CONSUL_HOST}/v1/kv/traefik/acme/account/object?raw=true | gzip -dc | tee /data/acme/acme.json
+
+cd /scripts
+
 set -o errexit
 set -o pipefail
 set -o nounset
