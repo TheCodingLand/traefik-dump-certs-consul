@@ -3,7 +3,6 @@ apiVersion: batch/v1
 metadata:
   name: consul-dump-cert-script
 spec:
-  #schedule: h/30 * * * * ?
   backoffLimit: 5
   activeDeadlineSeconds: 100
   template:
@@ -14,9 +13,7 @@ spec:
       containers:
         - name: consul-dump-cert-script
           image: registry.mytools.live/acme-dump-script:1.2
-          #command: /bin/sh /scripts/dumpCert.sh
-          command: ["/bin/sh", "/scripts/dumpCert.sh"]
-          #args: ["-c", "while true; do echo hello; sleep 10;done"]          
+          command: ["/bin/sh", "/scripts/dumpcerts.sh"]   
           volumeMounts:
            - mountPath: /data
              name: consul-dump-script-volume
