@@ -7,5 +7,11 @@ note : the path for the acme storage account is usually /traefik/acme/account/, 
 
 For Kubernetes I have included my manifest as an example.
 
-Container can run with docker run directly, map the /data path with a local volume to get the certificates.
+Container can run with docker run directly: 
+  - uncomment the CMD line in the Dockerfile
+  - map the /data path with a local volume to get the certificates. (-v /yourhostdata:/data)
+
+docker build . -t traefik-dump-certs-consul:1
+docker run -v /home/user/data/:/data traefik-dump-certs-consul:1
+
 
